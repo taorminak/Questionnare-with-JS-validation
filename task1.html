@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+<div>
+    <input id="search"><button onclick="getPictures()">Search!</button>
+    <div id="picturesContainer"></div>
+</div>
+    <script>
+        
+  
+        function getPictures() {
+             let question = document.getElementById("search").value;
+            fetch('https://api.giphy.com/v1/gifs/search?api_key=CJJv8vuDU8iOkUokKfhrzNyvPRP4nfqg&q='+ question + '&limit=5&offset=0&rating=g&lang=en',
+            { headers: {'Access-Control-Allow-Origin': 'https://developers.giphy.com/',
+             'Access-Control-Allow-Headers': 'Access-Control-Allow-Origin'}},
+            )
+            .then (response => response.json())
+            .then (pictures => { console.log(pictures.data);
+                
+                let picturesContent = "";
+
+        for (let picture of pictures.data) {
+          picturesContent += `<div class="picture">
+                <img src="${picture.url}" style="width:300px"/>GIF
+                </div>`; 
+                console.log(picture.url)   
+        }
+        document.getElementById("picturesContainer").innerHTML=picturesContent;
+            })
+            .catch(error => console.log(error))
+
+            
+        }
+    </script>
+</body>
+</html>

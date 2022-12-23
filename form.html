@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="/assets/fonts/font-awesome-4.7.0/css/font-awesome.min.css"
+    />
+    <link type="" rel="stylesheet" href="assets/styles/styles.css" />
+  </head>
+  <body>
+    <form>
+      <div class="form">
+        <div class="form__container">
+          <div class="container_colored">
+            <form class="container">
+              <span class="container__logo">
+                <i class="fa fa-user" aria-hidden="true"></i>
+              </span>
+
+              <span class="container__title"> Sign up </span>
+          
+
+              <div class="container__input_user">
+                <div class="container__icon">
+                  <i class="fa fa-user" aria-hidden="true"></i>
+                </div>
+                <input
+                  class="input-text"
+                  type="text"
+                  id="name"
+                  name="full-name"
+                  placeholder="Full Name"
+                  required
+                  pattern="^[a-zA-Z\s.,]+$"
+                />
+              </div>
+
+              <div class="container__input_user">
+                <div class="container__icon">
+                  <i class="fa fa-envelope" aria-hidden="true"></i>
+                </div>
+                <input
+                  class="input-text"
+                  type="text"
+                  id="e-mail"
+                  name="e-mail"
+                  placeholder="E-mail"
+                  required
+                  pattern="/^w+([.-]?w+)*@w+([.-]?w+)*(.w{2,3})+$/"
+                />
+              </div>
+
+              <div class="container__input_user">
+                <div class="container__icon">
+                  <i class="fa fa-lock" aria-hidden="true"></i>
+                </div>
+                <input
+                  class="input-text"
+                  type="password"
+                  id="password"
+                  name="pass"
+                  placeholder="Password"
+                  required
+                />
+              </div>
+
+              <div class="container__input_user">
+                <div class="container__icon">
+                  <i class="fa fa-lock" aria-hidden="true"></i>
+                </div>
+                <input
+                  class="input-text"
+                  type="password"
+                  id="confirm-pass"
+                  name="pass"
+                  placeholder="Repeat password"
+                  required
+                />
+              </div>
+
+              <div class="container__input_user">
+                <div class="container__icon">
+                  <i class="fa fa-phone" aria-hidden="true"></i>
+                </div>
+                <input
+                  class="input-text"
+                  type="number"
+                  id="phone"
+                  name="phone"
+                  placeholder="Phone"
+                  required
+                  pattern="/^\+?(\d{1,3})?[- .]?\(?(?:\d{2,3})\)?[- .]?\d\d\d[- .]?\d\d\d\d$/"
+                  minlength="10"
+                  maxlength="20"
+                  max = 10;
+                />
+              </div>
+
+              <div class="form__checkbox">
+                <input
+                  class="checkbox__input"
+                  id="ckb1"
+                  type="checkbox"
+                  name="remember-me"
+                />
+                <label class="checkbox-label" for="ckb1"> Remember me </label>
+              </div>
+              <div id="message"></div>
+              <div class="container__login">
+                <button type="submit" class="container__button" id="submit" onclick="myFunction(event); sendPost(event)">
+                  Sign up
+                </button>
+              </div>
+
+              <div class="container__text">
+                <a class="txt1" href="#">
+                  Already a member? <span>Log in</span>
+                </a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <script>
+      let errors = [];
+      const showErrorMessage = (el, message) => {
+        let div = document.createElement("div");
+        div.innerHTML = message;
+        div.classList.add("error-message");
+
+        el.after(div);
+        el.classList.add("error-input");
+      
+      };
+
+
+      function checkValidity(input) {
+        let validity = input.validity;
+
+        if (!validity.patternMismatch) {
+          showErrorMessage(input, "Неверный формат заполнения");
+        }
+
+        if (!validity.tooLong) {
+          showErrorMessage(input, "Значение слишком длинное");
+        }
+
+        if (!validity.tooShort) {
+          showErrorMessage(input, "Значение слишком короткое");
+        }
+
+        if (!validity.typeMismatch) {
+          showErrorMessage(
+            input,
+            "Значение не соответствует указаному атрибуту type"
+          );
+        }
+
+        if (!validity.valueMissing) {
+          showErrorMessage(input, "Отсутствует обязательное значение");
+        }
+
+        if (validity.stepMismatch) {
+          showErrorMessage(input, "Значение не соответствует указаному шагу");
+        }
+
+       // let clear = document.querySelectorAll('.error-input');
+      //clear.forEach( e => e.remove() ); - не срабатывает должным образом
+
+      }
+
+    
+
+      function checkAll() {
+        let inputs = document.querySelectorAll("input");
+
+        for (let input of inputs) {
+          checkValidity(input);
+        }
+
+      
+      }
+     
+
+      function myFunction(e) {
+        e.preventDefault();
+
+        let name = document.getElementById("name");
+        let email = document.getElementById("e-mail");
+        let password = document.getElementById("password");
+        let confirmPass = document.getElementById("confirm-pass");
+        let phone = document.getElementById("phone");
+
+        document.getElementById("message").innerHTML = "";
+
+        if (name.value == "") {
+          document.getElementById("message").innerHTML +=
+            "You need to provide your name<br>";
+        }
+        if (email.value == "") {
+          document.getElementById("message").innerHTML +=
+            "You need to provide your email<br>";
+        }
+        if (password.value == "") {
+          document.getElementById("message").innerHTML +=
+            "You need to provide your password<br>";
+        }
+        if (confirmPass.value == "") {
+          document.getElementById("message").innerHTML +=
+            "You need to repeat your password<br>";
+        }
+        if (phone.value == "") {
+          document.getElementById("message").innerHTML +=
+            "You need to provide your phone<br>";
+        } else {
+          let name = document.getElementById("name").value;
+          let greeting = "Hello, " + name + "!";
+          document.getElementById("message").innerHTML = greeting;
+          document.getElementById("message").style.color = "white";
+        }
+
+        checkAll();
+        
+      }
+
+      function sendPost(event) {
+        event.preventDefault();
+
+        let user = {
+          fullName: document.getElementById("name").value,
+          email: document.getElementById("e-mail").value,
+          password: document.getElementById("password").value,
+          phone: document.getElementById("phone").value
+        }
+        fetch ("https://httpbin.org/post",
+        {
+          method: 'POST',
+          body: JSON.stringify(user),
+          headers: {'Content-Type': 'application/json;charset=utf-8',},
+        }
+        )
+        .then (response => response.json())
+        .then (user => { console.log (user);})
+        .catch(error => console.log(error))
+      }
+
+      
+    </script>
+  </body>
+</html>
