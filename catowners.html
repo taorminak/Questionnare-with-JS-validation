@@ -9,58 +9,96 @@
   <body>
     <h1>Опросник</h1>
     <form>
-    <div>
-      <label for="nickname">Кличка питомца:</label>
-      <input type="text" id="nickname" minlength="2" name="nickname" maxlength="10" required />* От 2 до 10 букв
-    </div>
-    <div>
-      <label for="name">Имя владельца:</label>
-      <input type="text" id="name" minlength="3" name="name" maxlength="40" required />* От 3 до 40 букв
-    </div>
-    <div>
-      <label for="phone">Телефон владельца:</label>
-      <input type="number" id="phone" minlength="6" name="phone" maxlength="12" required />* Только числа
-    </div>
-    <div>
-      <div>Выберите породу:</div>
-      <select name="breed" required>
-        <option value="1">Мейн-кун</option>
-        <option value="2">Персидская</option>
-        <option value="3">Сиамская</option>
-        <option value="4">Сибирская</option>
-        <option value="5">Шотландская</option>
-        <option value="6">Канадский сфинкс</option>
-        <option value="7">Бенгальская</option>
-        <option value="8">Британская</option>
-        <option value="9">Тайская</option>
-        <option value="10">Другая</option>
-      </select>
-    </div>
-    <div>
-      <div>Тип корма:</div>
-      Влажный <input type="checkbox" id="wet" name="wet" />Сухой<input
-        type="checkbox"
-        id="dry" name="dry"
-      />Натуральный<input type="checkbox" id="natural" name="natural" />
-    </div>
-    <div>
-      <div>Пол животного:*</div>
-      Самец <input type="radio" required name="sex" /><br />Самка<input
-        type="radio"
-        required
-        name="sex"
-      />
-    </div>
-    <div>
-      <div>Оставьте ваш комментарий:</div>
-      <textarea rows="10"></textarea>
-    </div>
-    <div>
-      <label for="picture">Фото питомца:</label>
-      <input type="file" id="picture" name="picture" required />
-    </div>
-    <div><button>Сохранить</button></div>
-    <div><button type="submit" id="postButton">Отправить</button></div></form>
+      <div>
+        <label for="nickname">Кличка питомца:</label>
+        <input
+          type="text"
+          id="nickname"
+          minlength="2"
+          name="nickname"
+          maxlength="10"
+          required
+        />* От 2 до 10 букв
+      </div>
+      <div>
+        <label for="name">Имя владельца:</label>
+        <input
+          type="text"
+          id="name"
+          minlength="3"
+          name="name"
+          maxlength="40"
+          required
+        />* От 3 до 40 букв
+      </div>
+      <div>
+        <label for="phone">Телефон владельца:</label>
+        <input
+          type="number"
+          id="phone"
+          minlength="6"
+          name="phone"
+          maxlength="12"
+          required
+        />* Только числа
+      </div>
+      <div>
+        <div>Выберите породу:</div>
+        <select name="breed" required>
+          <option value="Maine Coon">Мейн-кун</option>
+          <option value="Persian">Персидская</option>
+          <option value="Siamese">Сиамская</option>
+          <option value="Siberian">Сибирская</option>
+          <option value="Scottish">Шотландская</option>
+          <option value="Сanadian sphynx">Канадский сфинкс</option>
+          <option value="Bengal">Бенгальская</option>
+          <option value="British">Британская</option>
+          <option value="Thai">Тайская</option>
+          <option value="Other">Другая</option>
+        </select>
+      </div>
+      <div>
+        <div>Тип корма:</div>
+        Влажный
+        <input
+          type="checkbox"
+          name="feed_type"
+          id="wet"
+          value="wet"
+        />Сухой<input
+          type="checkbox"
+          name="feed_type"
+          value="dry"
+          id="dry"
+        />Натуральный<input
+          type="checkbox"
+          name="feed_type"
+          id="natural"
+          value="natural"
+        />
+      </div>
+      <div>
+        <div>Пол животного:*</div>
+        Самец
+        <input type="radio" required name="sex" value="male" /><br />Самка<input
+          type="radio"
+          required
+          name="sex"
+          value="female"
+        />
+      </div>
+      <div>
+        <div>Оставьте ваш комментарий:</div>
+        <textarea rows="10"></textarea>
+      </div>
+      <div>
+        <label for="picture">Фото питомца:</label>
+        <input type="file" id="picture" name="file" required />
+      </div>
+      <div><button>Сохранить</button></div>
+      <div><button id="myBtn">OK</button></div>
+      <div><button type="submit" id="postButton">Отправить</button></div>
+    </form>
 
     <style>
       body {
@@ -75,23 +113,22 @@
       }
     </style>
     <script>
-      const form= document.querySelector('form');
+      const form = document.querySelector("form");
       postButton.onclick = function (e) {
-            e.preventDefault();
+        e.preventDefault();
 
-            const formData = new FormData(form);
+        const formData = new FormData(form);
 
-            fetch("https://httpbin.org/post",
-                {
-                    method: 'POST',
-                    body: new FormData(form)
-                })
-                .then(response => response.json())
-                .then(user => {
-                    console.log(user);
-                })
-                .catch(error => console.log(error));
-        }
+        fetch("https://httpbin.org/post", {
+          method: "POST",
+          body: new FormData(form),
+        })
+          .then((response) => response.json())
+          .then((user) => {
+            console.log(user);
+          })
+          .catch((error) => console.log(error));
+      };
     </script>
   </body>
 </html>
